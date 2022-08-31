@@ -10,9 +10,12 @@
 
 ## Features
 
-- jump to the next slide (every slide has to start with `{page-head}` in order to be found)
+- jump to the next slide  
+  > every slide has to start with a horizontal rule in markdown syntax `---`, `___` or `***` in order to be found
 - jump to the previous slide
-- plot an image (one line under the `{page-head}` define the image `{image:./path/to/image}`)
+- plot an image  
+  > one line under the horizontal rule (`---`, `___` or `***`) define the image in markdown syntax  
+  > `![image name](/path/to/image)`
 
 ## Requirements
 
@@ -103,9 +106,10 @@ call plug#end()
 
     let g:NerdSlides_ImageBackgroundColor = "none" 
 
-### Examle
+### Examles
 
-[example presentation](examples/sprint-review.txt)
+- [example presentation - sprint review](examples/sprint-review/sprint-review.md)
+- [example presentation - dev-talk (markdown only)](examples/dev-talk/dev-talk.md)
 
 ### Usage
 
