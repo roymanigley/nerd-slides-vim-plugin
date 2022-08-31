@@ -1,12 +1,13 @@
 set nocompatible
+syntax on
 
 let g:NerdSlides_ImageBackgroundColor = "300a24" 
 
 function NerdSlides#next()
-    /{page-head}
+    /^\(\(___\+\)\|\(---\+\)\|\(\*\*\*\+\)\s*\)$
     normal j
     let _line = getline('.')
-    if match(_line, '{image:.\+}') == 0
+    if match(_line, '^!\[.\+\](.\+)\s*$') == 0
         call NerdSlides#handleImage(_line) 
         call NerdSlides#next()
     endif
@@ -14,11 +15,11 @@ function NerdSlides#next()
 endfunction
 
 function NerdSlides#previous()
-    ?{page-head}
-    ?{page-head}
+    ?^\(\(___\+\)\|\(---\+\)\|\(\*\*\*\+\)\s*\)$
+    ?^\(\(___\+\)\|\(---\+\)\|\(\*\*\*\+\)\s*\)$
     normal j
     let _line = getline('.')
-    if match(_line, '{image:.\+}') == 0
+    if match(_line, '^!\[.\+\](.\+)\s*$') == 0
         call NerdSlides#handleImage(_line) 
         call NerdSlides#previous()
     endif
@@ -26,8 +27,9 @@ function NerdSlides#previous()
 endfunction
 
 function NerdSlides#handleImage(_line)
-    let _path = substitute(a:_line, '{image:', '', '')
-    let _path = substitute(_path, '}', '', '')
+    echom a:_line
+    let _path = substitute(a:_line, '!\[.\+\](', '', '')
+    let _path = substitute(_path, ')', '', '')
     call system("feh -B \"\#" . g:NerdSlides_ImageBackgroundColor . "\" -F \"" . _path . "\"")
 endfunction
 
